@@ -1,3 +1,4 @@
+# All these commands are giving every letter and punctuation a serial number.
 psk = {
 " "  :"1",
 "!" :"111111111",
@@ -96,16 +97,19 @@ psk = {
 '~'   :"1011010111",
 }
 
+# This command is decoding a password given to the file by using a combination of the serial numbers that the previous command gives
 decode_psk = {}
 for k, v in psk.items():
     decode_psk[v] = k
 
+# Encoding decoded password to unlock and see the file
 def encode(string):
     result = []
     for c in string:
         result.append(psk[c])
     return '00'.join(result) + '00'
 
+# Decoding encoded file before you close the file
 def decode(string):
     try:
         return decode_psk[''.join([str(i) for i in string])]
